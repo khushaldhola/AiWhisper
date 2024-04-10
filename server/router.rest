@@ -1,0 +1,20 @@
+# for rest client extention - ext should be .rest to work
+GET http://localhost:8000/user
+###
+POST http://localhost:8000/user 
+Content-Type: application/json
+
+{
+    "name":"moon knight",
+    "email":"MOON_9eight@gmail.com",
+    "image":"moon_image"
+}
+###
+POST http://localhost:8000/user 
+Content-Type: application/json
+
+{
+    "name": "Bruce Wayne",
+    "email": "batman@wayneenterprises.com",
+    "image": "🦇🌃 Gotham's Dark Knight"
+}

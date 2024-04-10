@@ -12,3 +12,8 @@ put clerk keys in .env.local and than wrap html with <ClerkProvider>
 created custome page so i can eliminate their url and shows our url
 
 there is one issue without sign in we cannot brouse any tab or windoe in site so toslve that issue -- middleware.ts and add publicRoutes: []
+
+now i am storing the users data into server/storage
+
+with use of rest client extention performed get and post to mongodb which is written in router.resr
+

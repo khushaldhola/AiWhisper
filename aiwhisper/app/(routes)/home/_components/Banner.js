@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import React from 'react'
+import Link from 'next/link'
 
 function Banner() {
   return (
@@ -10,9 +10,11 @@ function Banner() {
      border gap-5'>
         <Image src='/social-panda-1.png' width={200} height={200} alt='panda'/>
         <div>
-        <h2 className='font-bold text-[29px] '>WELCOME TO SOCIAL PANDA</h2>
+        <h2 className='font-bold text-[29px] '>WELCOME TO AI WHISPER</h2>
         <h2 className=''>Join Community, Create and Share your thought</h2>
-        <Button className="mt-3 bg-blue-500">Get Started</Button>
+        <Link href='/sign-up'>
+          <Button className="mt-3 bg-blue-500">Get Started</Button>
+        </Link>
         </div>
         
     </div>

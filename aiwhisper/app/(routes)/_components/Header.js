@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '/components/ui/button'
 import { Menu, MenuSquare } from 'lucide-react'
 import Link from 'next/link'
 import { useUser, UserButton } from '@clerk/nextjs';

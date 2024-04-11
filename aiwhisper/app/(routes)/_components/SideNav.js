@@ -1,6 +1,6 @@
 "use client"
-import MenuList from '@/app/_utils/MenuList'
-import { Button } from '@/components/ui/button'
+import MenuList from '/app/_utils/MenuList'
+import { Button } from '/components/ui/button'
 
 import { LogIn } from 'lucide-react'
 import Image from 'next/image'

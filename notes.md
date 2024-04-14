@@ -15,5 +15,13 @@ there is one issue without sign in we cannot brouse any tab or windoe in site so
 
 now i am storing the users data into server/storage
 
-with use of rest client extention performed get and post to mongodb which is written in router.resr
+with use of rest client extention performed get and post to mongodb which is written in router.rest
 
+created endpoint to store posts/strings 
+
+npx shadcn-ui@latest add toast -- to add toast whle adding or creating post 
+
+moment js lib to convert timstamps in actual human redable time
+npm install moment --save 
+
+not responsive -- some bugs in styling --

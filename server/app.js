@@ -27,8 +27,8 @@ const userRoute = require('./routes/userRoute');
 app.use('/user', userRoute, cors());
 
 //Post Route
-// const postRoute=require('./routes/postRoute');
-// app.use('/post',postRoute,cors());
+const postRoute=require('./routes/postRoute');
+app.use('/post',postRoute,cors());
 
 //Comment Route
 // const commentRoute=require('./routes/commentRoute');

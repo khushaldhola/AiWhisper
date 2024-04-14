@@ -18,3 +18,39 @@ Content-Type: application/json
     "email": "batman@wayneenterprises.com",
     "image": "🦇🌃 Gotham's Dark Knight"
 }
+### 
+GET http://localhost:8000/post
+###
+POST http://localhost:8000/post 
+Content-Type: application/json
+
+{
+    "postText":"Sample Post Msg", 
+    "createdAt":"326347347", 
+    "createdBy":"6596e7e039f59629cd43289e", 
+    "imageUrl":"SampleUrl"
+}
+###
+POST http://localhost:8000/post 
+Content-Type: application/json
+
+{
+    "postText":"welcome to Alabama", 
+    "createdAt":"09112001", 
+    "createdBy":"6596e7e039f59629cd43289e", 
+    "imageUrl":"TwinTower"
+}
+###
+POST http://localhost:8000/post 
+Content-Type: application/json
+
+{
+    "postText":"welcome to Germany", 
+    "createdAt":"20041889", 
+    "createdBy":"66167c7572c435743b8b2f34", 
+    "imageUrl":"A Painter: castle of Neuschwanstein"
+}
+
+###
+GET http://localhost:8000/user/wami50731@gmail.com
+###

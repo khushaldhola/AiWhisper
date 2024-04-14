@@ -4,31 +4,19 @@ const Post = require('../models/Post');
 
 const router=express.Router();
 
-
-//Get All Post
-router.get('/',async(req,res)=>{
+// Get posts
+router.get('/', async(req, res)=>{
     try{
-        const posts=await Post.find()
-        .populate('createdBy')
-        .populate('likes')
-        .populate({
-            path:'comments',
-            populate:{
-                path:'createdBy',
-                model:'user'
-            }
-        })
-        .sort({createdAt:-1});
+        // populate so instead of getting userid i cn get user name
+        const posts = await Post.find().populate('createdBy').sort({createdAt:-1}); // - desc
+        // res.send("User get Req.") // now setup rout eon app to see
         res.json(posts)
-    }
-    catch(error)
-    {
-        res.status(500).json({message:error.message})
-    }
+    } catch(error){ res.status(500).json({message: error.message}) }
 })
 
+// Create Post
 
-//Created New Post
+// Create user
 router.post('/',async(req,res)=>{
     try{
         const data={
@@ -46,35 +34,58 @@ router.post('/',async(req,res)=>{
     }
 })
 
+//Get All Post
+// router.get('/',async(req,res)=>{
+//     try{
+//         const posts=await Post.find()
+//         .populate('createdBy')
+//         .populate('likes')
+//         .populate({
+//             path:'comments',
+//             populate:{
+//                 path:'createdBy',
+//                 model:'user'
+//             }
+//         })
+//         .sort({createdAt:-1});
+//         res.json(posts)
+//     }
+//     catch(error)
+//     {
+//         res.status(500).json({message:error.message})
+//     }
+// })
+
+
 //Like/Dislike Post
-router.put("/like/:postId",async(req,res)=>{
-    try{
-       const postId=req.params.postId;
-       const data={
-        userId:req.body.userId,
-        isLike:req.body.isLike
-       }
-        const post=await Post.findById(postId);
-        if(!post.likes)
-        {
-            const updatePost=await Post.findByIdAndUpdate(postId,{likes:[]},
-               { upsert:true,
-                runValidators:true
-                }
-            );
-            await updatePost.save();
-        }
-        const updatedPost=await Post.findById(postId);
-        data.isLike
-        ?updatedPost.likes.push(data.userId)
-        :updatedPost.likes.pop(data.userId);
-        const result=await updatedPost.save()
-        res.status(201).json(result);
-    }catch(error)
-    {
-        res.status(500).json({message:error.message})
-    }
-})
+// router.put("/like/:postId",async(req,res)=>{
+//     try{
+//        const postId=req.params.postId;
+//        const data={
+//         userId:req.body.userId,
+//         isLike:req.body.isLike
+//        }
+//         const post=await Post.findById(postId);
+//         if(!post.likes)
+//         {
+//             const updatePost=await Post.findByIdAndUpdate(postId,{likes:[]},
+//                { upsert:true,
+//                 runValidators:true
+//                 }
+//             );
+//             await updatePost.save();
+//         }
+//         const updatedPost=await Post.findById(postId);
+//         data.isLike
+//         ?updatedPost.likes.push(data.userId)
+//         :updatedPost.likes.pop(data.userId);
+//         const result=await updatedPost.save()
+//         res.status(201).json(result);
+//     }catch(error)
+//     {
+//         res.status(500).json({message:error.message})
+//     }
+// })
 
 
 

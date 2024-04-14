@@ -1,15 +1,33 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Banner from './_components/Banner'
+import PostList from './_components/PostList'
 import WritePost from '../_components/WritePost'
 import { useUser } from '@clerk/nextjs';
+import GlobalApi from '../../_utils/GlobalApi'
 
 function Home() {
   const {user} = useUser();
+  const [postList, setPostList] = useState([])
+
+    useEffect(() => {
+        getAllPost()
+    }, [])
+
+    const getAllPost = () => {
+        GlobalApi.getAllPost().then(resp => {
+            // console.log(resp.data)
+            setPostList(resp.data)
+        })
+    }
+
   return (
-    <div className='p-5'>
-      { !user ? <Banner/> : <WritePost />}
+    <div className='p-5 px-10'>
+      { !user ? <Banner/> : <WritePost getAllPost={() => getAllPost() } />}
+      
+      <PostList postList={postList} />
     </div>
+
   )
 }
 

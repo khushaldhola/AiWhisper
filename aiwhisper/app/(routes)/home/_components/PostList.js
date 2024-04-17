@@ -2,7 +2,7 @@ import GlobalApi from './../../../_utils/GlobalApi'
 import React, { useEffect, useState } from 'react'
 import PostItem from './PostItem';
 
-function PostList({ postList }) {
+function PostList({ postList, updatePostList }) {
 
 
 

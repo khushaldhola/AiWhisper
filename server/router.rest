@@ -47,10 +47,39 @@ Content-Type: application/json
 {
     "postText":"welcome to Germany", 
     "createdAt":"20041889", 
-    "createdBy":"66167c7572c435743b8b2f34", 
-    "imageUrl":"A Painter: castle of Neuschwanstein"
+    "createdBy":"66167c7572c435743b8b2f34"
 }
 
 ###
 GET http://localhost:8000/user/wami50731@gmail.com
+###
+POST http://localhost:8000/post 
+Content-Type: application/json
+
+{
+    "postText":"welcome to Germany", 
+    "createdAt":"20041889", 
+    "createdBy":"66167c7572c435743b8b2f34",
+    "imageUrl":"YouKnow..."
+}
+
+### just testing...
+POST http://localhost:8000/post 
+Content-Type: application/json
+###
+PUT http://localhost:8000/post/like/661d0f61ea7dfe5d16c32e9a
+Content-Type: application/json
+
+{
+    "userId":"66167c7572c435743b8b2f34",
+    "isLike":true
+}
+###
+PUT http://localhost:8000/post/like/661d0f61ea7dfe5d16c32e9a
+Content-Type: application/json
+
+{
+    "userId":"khushaltest",
+    "isLike":true
+}
 ###

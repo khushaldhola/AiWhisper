@@ -2,16 +2,17 @@ import { UserDetailContext } from '../../../_context/UserDetailContext'
 import { MoreVertical, Trash } from 'lucide-react'
 import Image from 'next/image'
 import React, { useContext, useState } from 'react'
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "../../../../components/ui/popover"
 import { Button } from '../../../../components/ui/button'
 import GlobalApi from '../../../_utils/GlobalApi'
 import { useToast } from '../../../../components/ui/use-toast'
+
 function CommentList({ commentList, userDetail, updatePostList }) {
-    console.log(userDetail)
+    // console.log(userDetail)
     const { toast } = useToast();
     const [commentListData, setCommentListData] = useState(commentList)
 
@@ -42,17 +43,18 @@ function CommentList({ commentList, userDetail, updatePostList }) {
                             className='rounded-full' />
                         <h2 className='bg-slate-100 p-2 rounded-lg'>{item.commentText}</h2>
                     </div>
-                    {/* {item.createdBy?._id==userDetail?._id&&
-               <Popover>
-               <PopoverTrigger>
-               <MoreVertical className='h-5 w-5 cursor-pointer'/>
-               </PopoverTrigger>
-               <PopoverContent>
-                <Button className="w-full flex gap-2"
-                variant="outline" onClick={()=>onDeleteComment(item)}>
-                  <Trash/> Delete</Button>
-               </PopoverContent>
-             </Popover>} */}
+
+                    {item.createdBy?._id == userDetail?._id &&
+                        <Popover>
+                            <PopoverTrigger>
+                                <MoreVertical className='h-5 w-5 cursor-pointer' />
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <Button className="w-full flex gap-2 hover:bg-red-100"
+                                    variant="outline" onClick={() => onDeleteComment(item)}>
+                                    <Trash /> Delete</Button>
+                            </PopoverContent>
+                        </Popover>}
 
                 </div>
             ))}

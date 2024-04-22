@@ -93,4 +93,4 @@ Content-Type: application/json
   "createdAt": "1234"
 }
 ###
-DELETE http://localhost:8000/comment/6598bf62a127740fd8682732
+DELETE http://localhost:8000/comment/6626e671d04f2dbf9d15474f

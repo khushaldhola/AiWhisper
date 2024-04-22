@@ -37,3 +37,5 @@ was getting Unhandled Runtime Error
 TypeError: Cannot read properties of undefined (reading 'map') than i realised there are some previous post in which comments is not present there so error was that,
 and toast is working now just had to move files to diff dir.
 npx shadcn-ui@latest add popover
+
+now it's a simple project anyone can do it(yet some functionality and sections are remains to build) but i need to add some ai stuff into this app to make it unique...

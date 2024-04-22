@@ -1,36 +1,45 @@
-const express=require('express');
+const express = require('express');
 const Post = require('../models/Post');
 
 
-const router=express.Router();
+const router = express.Router();
 
 // Get posts
-router.get('/', async(req, res)=>{
-    try{
+router.get('/', async (req, res) => {
+    try {
         // populate so instead of getting userid i cn get user name
-        const posts = await Post.find().populate('createdBy').populate('likes').sort({createdAt:-1}); // - desc
+        const posts = await Post.find().populate('createdBy')
+            .populate('likes')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'createdBy',
+                    model: 'user'
+                }
+            })
+            .sort({ createdAt: -1 });
+        // const posts = await Post.find().populate('createdBy').populate('likes').populate('comments').sort({createdAt:-1});
         // res.send("User get Req.") // now setup rout eon app to see
         res.json(posts)
-    } catch(error){ res.status(500).json({message: error.message}) }
+    } catch (error) { res.status(500).json({ message: error.message }) }
 })
 
 // Create Post
 
 // Create user
-router.post('/',async(req,res)=>{
-    try{
-        const data={
-            postText:req.body.postText,
-            createdAt:req.body.createdAt,
-            createdBy:req.body.createdBy,
-            imageUrl:req.body.imageUrl
+router.post('/', async (req, res) => {
+    try {
+        const data = {
+            postText: req.body.postText,
+            createdAt: req.body.createdAt,
+            createdBy: req.body.createdBy,
+            imageUrl: req.body.imageUrl
         }
 
-        const postRes=await Post.create(data);
+        const postRes = await Post.create(data);
         res.status(201).json(postRes);
-    }catch(error)
-    {
-        res.status(500).json({message:error.message})
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
 })
 
@@ -58,31 +67,29 @@ router.post('/',async(req,res)=>{
 
 
 //Like/Dislike Post
-router.put("/like/:postId",async(req,res)=>{
-    try{
-       const postId=req.params.postId;
-       const data={
-        userId:req.body.userId,
-        isLike:req.body.isLike
-       }
-        const post=await Post.findById(postId);
-        if(!post.likes)
-        {
-            const updatePost=await Post.findByIdAndUpdate(postId, {likes:[]}, { upsert:true, runValidators:true });
+router.put("/like/:postId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const data = {
+            userId: req.body.userId,
+            isLike: req.body.isLike
+        }
+        const post = await Post.findById(postId);
+        if (!post.likes) {
+            const updatePost = await Post.findByIdAndUpdate(postId, { likes: [] }, { upsert: true, runValidators: true });
             await updatePost.save();
         }
-        const updatedPost=await Post.findById(postId);
+        const updatedPost = await Post.findById(postId);
 
         data.isLike
             ? updatedPost.likes.push(data.userId)
             : updatedPost.likes.pop(data.userId);
 
-        const result=await updatedPost.save()
+        const result = await updatedPost.save()
         res.status(201).json(result);
-    }catch(error)
-    {
-        res.status(500).json({message:error.message})
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
 })
 
-module.exports=router;
+module.exports = router;

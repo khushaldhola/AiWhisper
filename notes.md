@@ -25,3 +25,14 @@ moment js lib to convert timstamps in actual human redable time
 npm install moment --save 
 
 not responsive -- some bugs in styling --
+
+implemented like func , i hv noticed that by contineuous clicking like it may crash..
+
+my toast not working as it should hv to fix it...
+
+npx shadcn-ui@latest add alert-dialog
+my shadcn is not working properly hv to reinstall it...
+
+was getting Unhandled Runtime Error
+TypeError: Cannot read properties of undefined (reading 'map') than i realised there are some previous post in which comments is not present there so error was that,
+and toast is working now just had to move files to diff dir.

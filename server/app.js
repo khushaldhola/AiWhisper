@@ -31,8 +31,8 @@ const postRoute=require('./routes/postRoute');
 app.use('/post',postRoute,cors());
 
 //Comment Route
-// const commentRoute=require('./routes/commentRoute');
-// app.use('/comment',commentRoute,cors());
+const commentRoute=require('./routes/commentRoute');
+app.use('/comment',commentRoute,cors());
 
 
 app.listen(port, () => {

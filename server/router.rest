@@ -83,3 +83,14 @@ Content-Type: application/json
     "isLike":true
 }
 ###
+POST http://localhost:8000/comment 
+Content-Type: application/json
+
+{
+  "post": "66263639d04f2dbf9d154696",
+  "createdBy": "66167c7572c435743b8b2f34",
+  "commentText": "comment 2",
+  "createdAt": "1234"
+}
+###
+DELETE http://localhost:8000/comment/6598bf62a127740fd8682732

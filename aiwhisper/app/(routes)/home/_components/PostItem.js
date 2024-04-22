@@ -1,14 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import moment from 'moment'
 import { UserDetailContext } from '../../../_context/UserDetailContext';
 import GlobalApi from '../../../_utils/GlobalApi';
 import { useUser } from '@clerk/nextjs';
+import { Send } from 'lucide-react';
+
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "../../../../components/ui/alert-dialog"
+import { useToast } from '../../../../components/ui/use-toast';
+import { Button } from '../../../../components/ui/button';
+import CommentList from './CommentList';
+// } from "@/components/ui/alert-dialog"
+
 
 function PostItem({ post, updatePostList }) {
 
     const { userDetail, setUserDetail } = useContext(UserDetailContext);
     const { user } = useUser();
+    const { toast } = useToast();
+
+    const [userInputComment, setUserInputComment] = useState();
 
     const chceckIsUserLike = (postLikes) => {
         return postLikes.find(item => item?._id == userDetail?._id)
@@ -32,6 +53,26 @@ function PostItem({ post, updatePostList }) {
         })
     }
 
+    const addComment = (postId) => {
+        const data = {
+            commentText: userInputComment,
+            createdBy: userDetail._id,
+            post: postId,
+            createdAt: Date.now().toString()
+        }
+        GlobalApi.addComment(data).then(resp => {
+            if (resp) {
+                toast({
+                    title: "Awesome!",
+                    description: "Your Comment added succesasfully",
+                    variant: "success"
+                })
+                updatePostList();
+            }
+        })
+        setUserInputComment('')
+    }
+
     return (
         <div className='p-5 border rounded-lg my-5'>
             <div className='flex gap-2 items-center'>
@@ -50,7 +91,7 @@ function PostItem({ post, updatePostList }) {
                 <h2 className=''>{post.postText}</h2>
             </div>
             <div className='flex items-center text-gray-500 justify-between mt-3'>
-                <div className='flex gap-1 items-center text-gray-500'>
+                <div className='flex gap-1 items-center text-gray-500 hover:cursor-pointer'>
                     {!chceckIsUserLike(post?.likes) ?
                         <svg xmlns="http://www.w3.org/2000/svg"
                             onClick={() => onLikeClick(true, post._id)}
@@ -67,20 +108,64 @@ function PostItem({ post, updatePostList }) {
                     }
                     <h2>{post?.likes?.length} Likes</h2>
                 </div>
-                <div className='flex gap-1 items-center hover:text-gray-800 mr-5'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
-                    </svg>
 
-                    <h2>96 Comments</h2>
-                </div>
+
+                <AlertDialog>
+                    <AlertDialogTrigger>
+                        <div className='flex gap-1 items-center hover:text-gray-800 mr-5'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+                            </svg>
+
+                            <h2>{post.comments?.length} Comments</h2>
+                            {/* <h2>{post.comments?.length} Comments</h2> */}
+                        </div>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="flex justify-between items-center">Comments... <AlertDialogCancel>X</AlertDialogCancel></AlertDialogTitle>
+                            <AlertDialogDescription>
+                                {/* <CommentList commentList={post?.comments} /> */}
+                                <CommentList commentList={post?.comments}
+                                    userDetail={userDetail}
+                                    updatePostList={() => updatePostList()} />
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                    </AlertDialogContent>
+                </AlertDialog>
+
             </div>
+            {/* Cmnts  */}
+            {user && <div className='mt-5'>
+                <hr className='mb-5'></hr>
+                <div className='flex gap-4 items-center mt-5'>
+                    <Image src={user?.imageUrl}
+                        width={30}
+                        height={30}
+                        alt='user-image'
+                        className='rounded-full'
+                    />
+                    <input type='text'
+                        value={userInputComment}
+                        onChange={(e) => setUserInputComment(e.target.value)}
+                        placeholder='Write a comment'
+                        className='w-full bg-slate-100 p-2 rounded-full 
+            px-5 outline-blue-300
+            '
+                    />
+                    <Button
+                        disabled={!userInputComment}
+                        onClick={() => addComment(post._id)}
+                        className="bg-blue-400
+            text-white p-2 h-8 w-8 rounded-xl hover:bg-blue-600"><Send /> </Button>
+                </div>
+            </div>}
         </div>
     )
 }
-    
+
 export default PostItem
-                {/* <div className='flex gap-2 items-center'>
+{/* <div className='flex gap-2 items-center'>
                 <Image src={post?.createdBy?.image} width={35} height={35} className='rounded-full' alt="user-image" />
                 <div>
                     <h2 className='font-bold'

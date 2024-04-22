@@ -7,7 +7,7 @@ import { useUser, UserButton } from '@clerk/nextjs';
 import { Image, Send, Video } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { useContext, useState } from 'react'
-import { useToast } from '../../../@/components/ui/use-toast';
+import { useToast } from '../../../components/ui/use-toast';
 import GlobalApi from '../../_utils/GlobalApi';
 
 function WritePost({getAllPost}) {

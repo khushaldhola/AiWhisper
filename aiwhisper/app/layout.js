@@ -3,7 +3,7 @@ import { Outfit } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { UserDetailContext } from './_context/UserDetailContext'
-import { Toaster } from '../@/components/ui/toaster'
+import { Toaster } from '../components/ui/toaster'
 import { useState } from 'react'
 
 const inter = Outfit({ subsets: ['latin'] })

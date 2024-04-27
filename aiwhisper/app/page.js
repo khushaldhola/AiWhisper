@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useEffect } from 'react';
 import GlobalApi from './_utils/GlobalApi';
 import { UserButton, useUser } from '@clerk/nextjs';
+import { Button } from '../components/ui/button';
+import Link from 'next/link'
 
 export default function Home() {
 
@@ -28,8 +30,17 @@ export default function Home() {
   }
 
   return (
-  <div>
+  <div className=''>
     <UserButton/>
+    <div className='flex items-center'>
+      <Link href="/home">
+        <Button className='gap-2 cursor-pointer mt-10 ml-5'> Go to Home Page of Web Service</Button>
+      </Link>
+
+      <Link href="/pass-gen">
+        <Button className=' gap-2 cursor-pointer mt-10 ml-5'> Password Gen </Button>
+      </Link>
+    </div>
   </div>
   )
 }

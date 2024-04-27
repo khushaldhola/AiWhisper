@@ -14,14 +14,13 @@ function SideNav({ toggleSideBar }) {
 
   return (
     <div className=' h-full p-5 border-0'>
-      <Image src='/logo.svg' alt='logo'
-        width={280}
-
-        height={200} />
-
-      <div className='flex flex-col mt-10'>
+      <div className='flex'>
+        <Image src='/ear.svg' alt='logo' width={64} height={64} />
+        <h1 className='flex justify-center items-center text-3xl'>AI Whisper</h1>
+      </div>
+      <div className='flex flex-col mt-5'>
         {MenuList.map((item, index) => (
-          <Link href={item.path} onClick={() => toggleSideBar(false)}>
+          <Link key={item.id} href={item.path} onClick={() => toggleSideBar(false)}>
             <h2 variant="ghost"
               className="group p-4 flex gap-5 items-center
                 justify-start rounded-md cursor-pointer

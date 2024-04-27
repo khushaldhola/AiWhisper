@@ -16,7 +16,7 @@ export default[
     {
         id:3,
         name:'Tools',
-        path:'/tool',
+        path:'/tools',
         icon:LayoutGrid
     },
     {

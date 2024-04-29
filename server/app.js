@@ -34,6 +34,9 @@ app.use('/post',postRoute,cors());
 const commentRoute=require('./routes/commentRoute');
 app.use('/comment',commentRoute,cors());
 
+//Community Route
+const communityRoute=require('./routes/communityRoute');
+app.use('/community',communityRoute,cors());
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

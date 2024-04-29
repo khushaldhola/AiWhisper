@@ -94,3 +94,17 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:8000/comment/6626e671d04f2dbf9d15474f
+###
+GET http://localhost:8000/community
+###
+POST http://localhost:8000/community 
+Content-Type: application/json
+
+{
+    "name": "Second Community",
+    "createdBy": "66167c7572c435743b8b2f34",
+    "members": [
+        { "user": "66167c7572c435743b8b2f34" }
+    ],
+    "posts": []
+}

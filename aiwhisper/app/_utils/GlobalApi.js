@@ -18,6 +18,10 @@ const addComment = (data) => axiosClient.post('/comment', data);
 
 const deleteComment = (commentId) => axiosClient.delete("/comment/" + commentId)
 
+const getAllCommunities = () => axiosClient.get('/community');
+
+const createCommunity = (data) => axiosClient.post('/community', data);
+
 export default {
     createUser,
     getUserByEmail,
@@ -25,5 +29,7 @@ export default {
     getAllPost,
     onPostLike,
     addComment,
-    deleteComment
+    deleteComment,
+    getAllCommunities,
+    createCommunity,
 }
